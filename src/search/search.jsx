@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import { Container,Input,Icon,Advanced} from "./style";
+import { Container,Input,Icon,Advanced,Searc} from "./style";
 
 export default class Search extends Component{
     render(){
@@ -11,10 +11,10 @@ export default class Search extends Component{
                 <Icon.Group/>
                     <p>Advanced</p>
                 </Advanced>
-                <Search>
+                <Searc>
                 <Icon.Search/>
                     <p>Search</p>
-                </Search>
+                </Searc>
             
             </Container>
         )

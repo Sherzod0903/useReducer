@@ -33,7 +33,7 @@ position:absolute;
 /* width:100%; */
 /* padding-left:10px; */
 text-align:center;
-left:113px;
+left:77px;
 top:78px;
 
 `
@@ -53,8 +53,9 @@ border-radius: 2px;
 
 `
 
-export const Search=styled.div`
+export const Searc=styled.div`
 ${Common}
+
 width: 180px;
 height: 44px;
 background: #0061DF;
