@@ -10,9 +10,17 @@ export default class Class extends Component{
 render()
 {
         return(
-            <div style={{flex:1}}>
-                <h1>Class Components</h1>
-                <button onClick={()=> this.setState({count:this.state.count+1})}>Count : {this.state.count}</button>
+            <div style={{
+                display:'flex',
+                background:'blue',
+                color:'white',
+                height:'80px',
+                justifyContent:'space-around'
+                }}>
+             <h1>Home</h1>
+             <h1>About</h1>
+             <h1>Classes</h1>
+             <h1>Contact</h1>
             </div>
         )
 }
