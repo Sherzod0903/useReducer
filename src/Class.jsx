@@ -1,12 +1,9 @@
 import React,{Component} from "react";
 
+
+
 export default class Class extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            count:0,
-        }
-    }
+   
 render()
 {
         return(
@@ -17,6 +14,7 @@ render()
                 height:'80px',
                 justifyContent:'space-around'
                 }}>
+             <h1>Student list {this.props.student.length}</h1>
              <h1>Home</h1>
              <h1>About</h1>
              <h1>Classes</h1>

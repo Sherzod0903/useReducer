@@ -27,7 +27,7 @@ export default class Root extends Component{
 
             return(
                 <div>
-                   <Class/>
+                   <Class student={this.state.students}/> 
                    <Hooks students={this.state.students} onDelete={onDelete}/>
                 </div>
             )
