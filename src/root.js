@@ -8,8 +8,10 @@ const Root=()=>{
 
 return(
     <div>
+
         <Controlled/>
         <UnControlled/>
+        
     </div>
 )
 
