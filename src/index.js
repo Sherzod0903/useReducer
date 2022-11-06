@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Context from './contextAPI/Students';
+import Context from './Components/Students';
 import './index.css';
 import Root from './root'
 
