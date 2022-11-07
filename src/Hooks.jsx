@@ -1,8 +1,8 @@
 import React , {useState,useReducer} from "react";
 
  const Hooks=(props)=>{
-    const [count,setCount]=useState(0);
-    const [name,setName]=useState('sherzod');
+    
+   
 const [option,setOption]=useState(1)
 const [multy,setMulty]=useState(2);
 
