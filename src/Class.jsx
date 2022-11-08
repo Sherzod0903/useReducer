@@ -1,109 +1,135 @@
-import React from "react";
-import { useReducer } from "react";
+import React,{Component} from "react";
+
 import {info} from './utilis/mock';
 
-export const Reducer=()=>{
-const reducer=(state,action)=>{
-    switch(action.type){
-        //delete
-        case 'delete': 
-        let del=state.data.filter((value)=>value.id!==action.payload.userId)
-        return{...state,data:del}
-
-        //search
-        case 'search':
-            let res=info.filter((value)=>value[state.selected].toString().toLocaleLowerCase().includes(action.payload.valueEvent.toLocaleLowerCase()))
-            return{...state,data:res}
-
-        //select
-        case 'select':
-            return{...state,selected:action.payload.selectEvent}
-
-            case 'edit':
-                return{...state,id:action.payload.userId,name:action.payload.userName,status:action.payload.userStatus}
-
-
-        //nameChange
-        case 'name':
-            return{...state,name:action.payload.nameEvent}
-
-
-            case 'status':
-                return{...state,status:action.payload.statusEvent}
-
-
-            //save
-            case 'save':
-                let save=state.data.map((value)=>state.id===value.id?{...value,name:state.name,status:state.status}:value)
-                return{data:save}
-            //default
-        default :return state;
-    }                           
-}
-    const [state,dispatch]=useReducer(reducer
-       
-        ,{
+export class Reducer extends Component{
+constructor(props){
+    super(props);
+    this.state={
         data:info,
-        selected:'name',
-        id:null,
+        count:1,
+        search:'id',
+        name:'',
+        status:''
+    }
+}
+render(){
+const plus=()=>{
+    if(this.state.count<10){
+
+        console.log(this.state.count);
+    this.setState({count:this.state.count+1})
+    }
+
+}
+
+const minus=()=>{
+        if(this.state.count>1){
+
+            console.log(this.state.count);
+        this.setState({count:this.state.count-1})
+        }
+
+
+}
+
+
+const onDelete=(id)=>{
+    console.log(id);
+let res=this.state.data.filter(value=> value.id!==id)
+this.setState({data:res,})
+
+}
+
+const onSearch=(e)=>{
+console.log(e.target.value);
+const {value}=e.target;
+let sea=info.filter((item)=>item.name.toLowerCase().includes(value.toLowerCase()))
+this.setState({data:sea})
+}
+const onSear=()=>{
+    
+}
+
+const onChange=(e)=>{
+this.setState({[e.target.name]:e.target.value})
+}
+
+const onAdd=()=>{
+  
+    let newUser={
+        id:Date.now(),
+        name:this.state.name,
+        status:this.state.status
+    };
+   
+    this.setState({
+        data:[...this.state.data,newUser],
         name:'',
         status:''
     })
-
+}
+    
     return(
-        <div style={{flex:'1'}}>
-            <input type='text' placeholder='Search...' onChange={(e)=>dispatch({type:'search',payload:{valueEvent:e.target.value}})}/>
-            <select onChange={(e)=>dispatch({type:'select',payload:{selectEvent:e.target.value}})}>
-                <option value='name' >Name</option>
-                <option value='id' >Id</option>
-                <option value='status' >Status</option>
 
-            </select>
-           <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Status</th>
+        <div>
+            <p>Count:{this.state.count} </p>
+            <p>Count:{this.state.status} </p>
+            <p>Count:{this.state.name} </p>
 
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    state.data.map((value)=>{
-                        return(
-                            <tr key={value.id}>
-                                <td>{value.id}</td>
-                                <td>{
-                                    state.id===value.id?
-                                    <input type='text' value={state.name} onChange={(e)=>dispatch({type:'name',payload:{nameEvent:e.target.value}})}/>:
-                                    value.name
-                                    }</td>
-                                <td>{
-                                    state.id===value.id?
-                                    <input  type='text' value={state.status} onChange={(e)=>dispatch({type:'status',payload:{statusEvent:e.target.value}})}/>:
-                                    value.status 
-                                    }</td>
-                                <td>
-                                    {
-                                        state.id===value.id?
-                                        <button onClick={()=>dispatch({type:'save'})}>save</button>:
 
-                            <button onClick={(e)=>dispatch({type:'edit',payload:{userId:value.id,userName:value.name,userStatus:value.status}})}>edit</button>
-                                    }
-                                </td>
+            <button onClick={plus}>+</button>
+            <button onClick={minus}>-</button>
+<hr/>
+<input onChange={onSearch} type='text' placeholder="search..."/>
+<button onClick={onSear}>search</button>
+<br/>
+<hr/>
 
-                            <button onClick={(e)=>dispatch({type:'delete',payload:{userId:value.id}})}>delete</button>
-                            </tr>
-                        )
-                    })
-                }
-                </tbody>
-           </table>
+<input value={this.state.name} type='text' name='name' onChange={onChange}  placeholder="name" />
+<input value={this.state.status} type='text' name='status'  onChange={onChange} placeholder="status" />
+<button onClick={onAdd}>add</button>
+
+            <table>
+                    <tbody>
+
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Status</th>
+
+                        </tr>
+               
+                        {
+                            this.state.data.map((value)=>{
+                                return(
+                               <tr key={value.id} >
+                                        <td>{value.id}</td>
+                                        <td>{value.name}</td>
+                                        <td>{value.status}</td>
+<td><button  >edit</button></td>
+<td><button  onClick={()=>onDelete(value.id)}>delete</button></td>
+
+                                    </tr>
+                            
+)
+})
+}
+                   
+</tbody>
+
+
+
+            </table>
         </div>
-    )
+
+        ) 
+        
+}
 
 
 }
+  
+
 
 export default Reducer;
